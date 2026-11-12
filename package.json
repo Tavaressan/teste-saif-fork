@@ -8,7 +8,9 @@
     "dev": "vite",
     "preview": "vite preview",
     "train": "bash tools/run-pipeline.sh",
-    "train:force": "bash tools/run-pipeline.sh --force"
+    "train:force": "bash tools/run-pipeline.sh --force",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -74,9 +76,14 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.1.12",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
     "@vitejs/plugin-react": "4.7.0",
+    "jsdom": "^31.0.0",
     "tailwindcss": "4.1.12",
-    "vite": "6.3.5"
+    "vite": "6.3.5",
+    "vitest": "^3.2.7"
   },
   "peerDependencies": {
     "react": "18.3.1",
