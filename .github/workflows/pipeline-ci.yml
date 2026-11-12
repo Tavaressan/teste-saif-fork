@@ -43,4 +43,24 @@ jobs:
           ruff format --check .
 
       - name: Pytest + coverage
-        run: pytest -q --cov=saifen_pipeline --cov-fail-under=50
+        run: |
+          pytest -q --cov=saifen_pipeline --cov-report=term-missing --cov-report=xml:coverage.xml --cov-fail-under=70
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-coverage
+          path: pipeline/coverage.xml
+          if-no-files-found: warn
+
+      - name: Coverage summary
+        if: always()
+        run: |
+          {
+            echo "## Pipeline coverage"
+            echo
+            echo '```'
+            python -m coverage report -m || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
