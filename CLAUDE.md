@@ -402,8 +402,10 @@ para trabalhar, mas não gaste tempo procurando o "app real" nelas.
    (`const G = {…}`) em vez de tokens.
 5. **`App.tsx:12` diz `// ── PHOSPHOR GREEN PALETTE ──`** mas a paleta é
    amarela. Comentário não atualizado no commit `2a5ce00`.
-6. **Sem `.venv` e sem cache parquet** no estado atual (regenerável).
-7. **Não existe `README.md` de verdade na raiz** — só o stub do Figma.
+6. **`summary.json` tem `"nan": 165`** em `by_period` — 165 linhas com período
+   não parseável, sem tratamento no pipeline.
+7. **Sem `.venv` e sem cache parquet** no estado atual (regenerável).
+8. **Não existe `README.md` de verdade na raiz** — só o stub do Figma.
 
 ---
 
