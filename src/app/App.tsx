@@ -43,6 +43,8 @@ const CRIME_POINTS: CrimePoint[] = [
   { x: 75,  y: 80,  type: "furto",     intensity: 0.38 },
 ];
 
+const SAFE_POINTS: SafePoint[] = [];
+
 import { SP_CENTER, safePoints as realSafePoints } from '../data/MockData.js';
 
 // Distance calculation
@@ -573,7 +575,7 @@ function SafePointsView({
         </div>
       </div>
 
-      <div className="flex flex-col divide-y" style={{ divideColor: G.border }}>
+      <div className="flex flex-col divide-y" style={{ borderColor: G.border } as React.CSSProperties}>
         {safePointsList.map((sp: any, i: number) => {
           const isBlocked = blockedSafePoints.has(sp.name);
           return (
