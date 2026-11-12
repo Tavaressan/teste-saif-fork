@@ -395,7 +395,7 @@ para trabalhar, mas não gaste tempo procurando o "app real" nelas.
 
 1. **CI não cobre o app web oficial.** `web-ci.yml` só dispara em `paths: web/**`
    e valida `web/index.html` — e o passo do `tidy` termina em `|| true`, então
-   nunca falha. O `src/` React tem teste (`npm test`, Vitest + jsdom, `src/**/*.test.*`, workflow `web-src-ci.yml`), mas não tem lint, typecheck nem build-check.
+   nunca falha. O `src/` React não tem lint, typecheck, test nem build-check.
 2. **`tools/start.sh` abre o legado.** Aponta para `http://localhost:8000/web/`.
 3. **Código duplicado entre `src/` e `web/src/`** sem fonte única de verdade.
 4. **`App.tsx` tem 1034 linhas** num componente só, com paleta hard-coded
