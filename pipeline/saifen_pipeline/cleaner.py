@@ -181,7 +181,7 @@ def clean(
     hours = df["hora_raw"].map(_extract_hour)
     from_hour = hours.map(lambda h: _hour_to_period(h) if h is not None else None)
     from_descr = df["period_raw"].map(_descr_periodo_to_period)
-    df["period"] = from_hour.fillna(from_descr)
+    df["period"] = from_hour.fillna(from_descr).fillna("desconhecido")
 
     for col in ("neighborhood", "city", "street", "police_unit", "sectional", "department"):
         df[col] = df[col].astype("string").str.strip()

@@ -85,6 +85,20 @@ def test_period_mapping_from_hour():
     assert periods["BO-2"] == "noite"
 
 
+def test_clean_classifies_unparseable_period_deterministically():
+    raw = _fake_raw()
+    invalid_period = raw.iloc[[0]].copy()
+    invalid_period[config.SSP_HORA_OCORRENCIA_COL] = pd.NaT
+    invalid_period[config.SSP_PERIODO_COL] = "sem período reconhecido"
+    invalid_period["NUM_BO"] = "BO-5"
+    raw = pd.concat([raw, invalid_period], ignore_index=True)
+
+    df = cleaner.clean(raw, bbox=config.SP_BBOX)
+
+    assert df.loc[df["bo_number"] == "BO-5", "period"].item() == "desconhecido"
+    assert cleaner.summarize(df)["by_period"]["desconhecido"] == 1
+
+
 def test_neighborhood_normalization():
     df = cleaner.clean(_fake_raw(), bbox=config.SP_BBOX)
     assert "CENTRO" in df["neighborhood"].values  # trimmed + uppercased
