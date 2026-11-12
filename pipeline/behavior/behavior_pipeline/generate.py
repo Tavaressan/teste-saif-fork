@@ -43,7 +43,9 @@ def generate_session(
         "activity": "demo",
         "label": label,
         "started_at": datetime.fromtimestamp(t0 / 1000.0, tz=timezone.utc).isoformat(),
-        "ended_at": datetime.fromtimestamp((t0 + duration_s * 1000) / 1000.0, tz=timezone.utc).isoformat(),
+        "ended_at": datetime.fromtimestamp(
+            (t0 + duration_s * 1000) / 1000.0, tz=timezone.utc
+        ).isoformat(),
         "n_samples": n,
         "sample_rate_target_hz": hz,
         "sample_rate_effective_hz": hz,

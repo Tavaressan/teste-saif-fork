@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-test = ["pytest>=8.0.0"]
+test = ["pytest>=8.0.0", "pytest-cov>=5.0.0"]
 
 [project.scripts]
 behavior-pipeline = "behavior_pipeline.cli:main"

@@ -15,6 +15,7 @@
     "lint": "expo lint",
     "typecheck": "tsc --noEmit",
     "test": "node --require ./test/register-cjs.cjs --import tsx --test --test-reporter spec src/services/*.test.ts",
+    "test:coverage": "mkdir -p coverage && node --require ./test/register-cjs.cjs --import tsx --test --experimental-test-coverage --test-reporter=spec --test-coverage-include=src/services/zone.ts --test-coverage-include=src/services/crimes.ts --test-coverage-include=src/services/profileStore.ts --test-coverage-lines=80 src/services/*.test.ts 2>&1 | tee coverage/coverage.txt",
     "test:zone": "node --require ./test/register-cjs.cjs --import tsx --test src/services/zone.test.ts",
     "test:parity": "tsc -p tsconfig.parity.json && node scripts/parity-check.cjs",
     "build:preview": "eas build --profile preview"
