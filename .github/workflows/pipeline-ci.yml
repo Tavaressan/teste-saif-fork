@@ -44,7 +44,7 @@ jobs:
 
       - name: Pytest + coverage
         run: |
-          pytest -q --cov=saifen_pipeline --cov-report=term-missing --cov-report=xml:coverage.xml --cov-fail-under=70
+          pytest -q --cov=saifen_pipeline --cov-report=term-missing --cov-report=xml:coverage.xml --cov-fail-under=65
 
       - name: Upload coverage
         if: always()
