@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # ───────────────────────────────────────────────────
-# SAIFEN — dev-web.sh
+# SAIFEN — legacy static web server
 #
-# Sobe um HTTP server estático na RAIZ do monorepo.
+# Sobe o frontend legado (web/) via HTTP estático na RAIZ do monorepo.
 # Servir da raiz é essencial para que /shared/heatmaps/* resolva
 # tanto para o web (web/index.html) quanto para o mobile em dev
 # (que faz fetch via EXPO_PUBLIC_SHARED_BASE).
@@ -13,9 +13,9 @@ PORT="${1:-8000}"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-printf "\n   SAIFEN — serving %s on :%s\n" "$ROOT" "$PORT"
+printf "\n   SAIFEN legacy — serving %s on :%s\n" "$ROOT" "$PORT"
 printf "   ────────────────────────────────────────────────\n"
-printf "   web app  → http://localhost:%s/web/\n" "$PORT"
+printf "   legacy web app → http://localhost:%s/web/\n" "$PORT"
 printf "   heatmaps → http://localhost:%s/shared/heatmaps/\n" "$PORT"
 printf "   summary  → http://localhost:%s/shared/summary.json\n\n" "$PORT"
 
