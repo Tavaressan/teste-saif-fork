@@ -50,18 +50,12 @@ export class HeatmapLoader {
             throw new Error(`HeatmapLoader: HTTP ${res.status} em ${url}`);
         }
         const payload = await res.json();
-        if (!payload || typeof payload.meta !== 'object' || payload.meta === null) {
-            throw new Error(`HeatmapLoader: payload sem meta em ${url}`);
-        }
-        if (!Array.isArray(payload.points)) {
-            throw new Error(`HeatmapLoader: payload sem points em ${url}`);
-        }
         return {
-            meta: payload.meta,
+            meta: payload.meta || null,
             count: typeof payload.count === 'number'
                 ? payload.count
-                : payload.points.length,
-            points: payload.points,
+                : (payload.points || []).length,
+            points: payload.points || [],
         };
     }
 
