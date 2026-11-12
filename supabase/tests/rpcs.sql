@@ -1,6 +1,6 @@
--- Testes das RPCs report_crime e zone_risk (opcional).
--- Exige Postgres+PostGIS. O CI atual NÃO executa este arquivo:
--- usa supabase/tests/check_sql.py (contrato estático, sem Docker).
+-- Testes das RPCs report_crime e zone_risk.
+-- Exige Postgres+PostGIS com as migrations aplicadas; o job rpc-postgres de
+-- supabase-ci.yml executa este arquivo. Falha (ON_ERROR_STOP) se o contrato quebrar.
 
 create or replace function tests_fail(msg text, got json default null)
 returns void

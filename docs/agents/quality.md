@@ -55,14 +55,23 @@ python3 -c "import json; p=json.load(open('shared/heatmaps/heatmap_points.json')
 
 ### Supabase RPCs
 
-Sem Docker. O CI e o check local leem o SQL versionado:
+Duas camadas. O check estático é rápido e roda em qualquer lugar:
 
 ```bash
 python3 supabase/tests/check_sql.py
 ```
 
-Isso confirma `device_required`, clamp `[50, 2000]` e limiares iguais a `zone.ts`.
-`supabase/tests/rpcs.sql` fica como script opcional para quando houver Postgres.
+Ele confirma `device_required`, clamp `[50, 2000]` e limiares iguais a `zone.ts`.
+
+O CI (job `rpc-postgres` em `supabase-ci.yml`) sobe `postgis/postgis`, aplica `supabase/tests/roles.sql` e as migrations em ordem e executa `supabase/tests/rpcs.sql` com `ON_ERROR_STOP`. Remover `device_required` ou o clamp na migration 006 faz o job falhar. Local, com Docker:
+
+```bash
+docker run -d --rm --name pgt -e POSTGRES_PASSWORD=postgres -p 55432:5432 postgis/postgis:16-3.4
+export PGHOST=localhost PGPORT=55432 PGUSER=postgres PGPASSWORD=postgres
+psql -v ON_ERROR_STOP=1 -f supabase/tests/roles.sql
+for f in supabase/migrations/*.sql; do psql -v ON_ERROR_STOP=1 -f "$f"; done
+psql -v ON_ERROR_STOP=1 -f supabase/tests/rpcs.sql
+```
 
 ## Workflows GitHub
 
@@ -73,7 +82,7 @@ Isso confirma `device_required`, clamp `[50, 2000]` e limiares iguais a `zone.ts
 | `pipeline.yml` | `main` + xlsx/schedule/`workflow_dispatch` | pytest **antes** do treino; commit de `shared/` só em `main` |
 | `behavior-ci.yml` | `pipeline/behavior/**` | pytest (+ ruff E,F) |
 | `web-ci.yml` | `web/**` | tidy (erros), imports, contrato heatmap |
-| `supabase-ci.yml` | `supabase/**` | contrato estático das RPCs (sem Docker) |
+| `supabase-ci.yml` | `supabase/**` | contrato estático + RPCs contra Postgres/PostGIS real |
 | `supabase-migrate.yml` | manual | `db push` em staging/prod |
 
 ## Contratos que não podem divergir
